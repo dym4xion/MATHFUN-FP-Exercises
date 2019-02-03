@@ -34,11 +34,10 @@ sumDiagonalLengths x y z = diagX + diagY + diagZ
 -- 30p is added for each additional kilometer. Write a function which takes the
 -- distance in kilometres, and returns the fare in pounds.
 
---taxiFare :: Int -> Float -- why does this break it???
-taxiFare :: (Ord a, Fractional a) => a -> a --type signature given by :t taxiFare
+taxiFare :: Int -> Float 
 taxiFare km
-    | km < 10   = (2.2 + 0.5 * km)
-    | otherwise = (7.2 + (km - 10) * 0.3)
+    | km < 10   = (2.2 + 0.5 * (fromIntegral km))
+    | otherwise = (7.2 + ((fromIntegral km) - 10) * 0.3)
 
 -- 6. Write a function that returns the number of values above the average of the
 -- three input values.

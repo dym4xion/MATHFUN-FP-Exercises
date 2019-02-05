@@ -29,23 +29,18 @@ distance x1 y1 x2 y2 = sqrt ((y1 - y2)^2 + (x1 - x2)^2)
 -- 6. Write a function which returns True if, and only if, all of its three parameters
 -- are all different from one another
 threeDifferent :: Int -> Int -> Int -> Bool
-threeDifferent a b c
-    | a == b = False 
-    | b == c = False
-    | c == a = False
-    | otherwise = True
-
+threeDifferent a b c = a /= b && b /= c
 
 -- 7. Using the 'mod' function, write a function that tests whether one integer is
 -- divisible by another
 divisibleBy :: Int -> Int -> Bool
-a `divisibleBy` b = if a `mod` b == 0 then True else False
+a `divisibleBy` b = a `mod` b == 0
 
 
 -- 8. Using the definition of divisibleBy, write a function which determines whether
 -- its argument is an even number
 isEven :: Int -> Bool
-isEven x = if x `divisibleBy` 2 then True else False
+isEven x = x `divisibleBy` 2
 
 
 -- 9. Write a function which gives the average of three integer values

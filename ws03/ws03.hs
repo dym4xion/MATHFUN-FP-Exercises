@@ -89,6 +89,14 @@ intSquareRoot :: Int -> Int
 intSquareRoot n = head [x | x <- [n, n - 1..1], x `power` 2 <= n]
 -- how could this be re-implemented using only things we have been taught in lectures?
 
+-- taken from: https://stackoverflow.com/questions/19965149/integer-square-root-function-in-haskell/19965405
+intSQRT :: Int -> Int
+intSQRT n = aux n
+    where
+    aux x
+        | x*x > n = aux (x - 1)
+        | otherwise = x
+
 
 -- 11. Re-implement two functions from Qs 5 - 10 using guards.
 

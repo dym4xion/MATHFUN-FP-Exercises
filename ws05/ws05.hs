@@ -106,9 +106,9 @@ removeAll n (x:xs)
 -- particular student.
 listMarks :: String -> [StudentMark] -> [Int]
 listMarks _ [] = []
-listMarks s sm
-    | (fst (head sm)) == s = (snd (head sm)):(listMarks s (tail sm))
-    | otherwise = listMarks s (tail sm)
+listMarks s (x:xs)
+    | (fst x) == s = (snd x):(listMarks s xs)
+    | otherwise = listMarks s xs
 
 -- 10. Write a recursive function which decides if the first list is a 
 -- prefix of the second list (e.g. [1,4] is a prefix of [1,2,3,4]).

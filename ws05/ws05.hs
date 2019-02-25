@@ -50,29 +50,28 @@ testData = [("John", 53), ("Sam", 16), ("Kate", 85), ("Jill", 65),
 -- non-empty list, and 0 for an empty list.
 headPlusOne :: [Int] -> Int
 headPlusOne [] = 0
-headPlusOne x = 1 + head x
+headPlusOne (x:xs) = 1 + x
 
 -- 2. Write a polymorphic function which adds an extra copy of the 
 -- first element at the beginning of the list (or returns [] for an
 -- empty list)
 duplicateHead :: [a] -> [a]
 duplicateHead [] = []
-duplicateHead x = (head x):x
+duplicateHead (x:xs) = x:x:xs
 
 -- 3. Write a polymorphic function which swaps the first two elements
 -- of a list (or leaves the list unchanged if it contains fewer than
 -- two elements)
 rotate :: [a] -> [a]
-rotate [] = []
-rotate [x] = [x]
-rotate (x:xs) = (head xs):x:(tail xs)
+rotate (x:x2:xs) = x2:x:xs
+rotate x = x -- case for empty or single item list
 
 -- RECURSION OVER LISTS
 -- 4. Write a recursive polymorphic function which returns the length 
 -- of a list
 listLength :: [a] -> Int
 listLength [] = 0
-listLength x = 1 + listLength (tail x)
+listLength (x:xs) = 1 + listLength xs
 
 -- 5. Write a recursive function which returns the product of all
 -- integers in a list or 1 for an empty list
@@ -106,14 +105,15 @@ removeAll n (x:xs)
 -- particular student.
 listMarks :: String -> [StudentMark] -> [Int]
 listMarks _ [] = []
-listMarks s (x:xs)
-    | (fst x) == s = (snd x):(listMarks s xs)
+listMarks s ((n,m):xs)
+    | n == s = m:(listMarks s xs)
     | otherwise = listMarks s xs
 
 -- 10. Write a recursive function which decides if the first list is a 
--- prefix of the second list (e.g. [1,4] is a prefix of [1,2,3,4]).
+-- prefix of the second list (e.g. [1,4] is a prefix of [1,4,3,2]).
 prefix :: [Int] -> [Int] -> Bool
 prefix [] _ = True
+prefix _ [] = False
 prefix (x:xs) (y:ys) = if x == y then prefix xs ys else False
 
 -- 11. Using the prefix function, write a recursive function which

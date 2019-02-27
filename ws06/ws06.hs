@@ -1,3 +1,4 @@
+-- REMAINING QUESTIONS: 8, 11, 13
 {- Week6.hs
  This module illustrates the use of functions as values
 -}
@@ -51,7 +52,6 @@ sumSquares = foldr (+) 0 . map (^2)
 --zeroToTen :: [a] -> [a]
 zeroToTen = filter (<11) . filter (>=0)
 
-
 -- 6. Write a function, squareRoots, that finds the square 
 -- roots of all the non-negative values in a list
 squareRoots :: [Double] -> [Double] 
@@ -65,21 +65,24 @@ countBetween lb ub = length . filter (>=lb) . filter (<=ub)
 -- 8. Write a function, alwaysPositive, that tests whether
 -- applying a given function to all elements of a list
 -- results in only positive values
---alwaysPositive f x = foldr (f)  
+--alwaysPositive f x = (length . filter (<0) . map (f) x) == 0
+--alwaysPositive f = foldr (&&) True . map (f)  
 
 -- 9. Write a function, productSquareRoots, that finds the
 -- product of the square roots of all the non-negative values in a list.
---productSquareRoot f x = if length . filter (<0) . map (f) x > 0 then False else True
+productSquareRoots = foldr (*) 1 . map sqrt . filter (>=0)
 
 -- OTHER HIGHER-ORDER FUNCTIONS
 -- Complete without using map, filter or foldr
 -- 10. Write a function, removeFirst, that removes the first
 -- element of a list that has a given property
 --removeFirst 
+removeFirst :: (a -> Bool) -> [a] -> [a]
+removeFirst f (x:xs) = if f x then xs else x:removeFirst f xs
 
 -- 11. Write a function, removeLast, that removes the last
 -- element of a list that has a given property.
-
+--removeLast f x =
 
 -- USING LAMBDA EXPRESSIONS
 -- 12. Using filter and a single lambda expression, give an
@@ -91,9 +94,9 @@ altZeroToTen = filter (\x -> x >= 0 && x < 11)
 -- reverse (to reverse a list), and (iii) onlyLowerCase 
 -- from Ex. 2.
 -- i mult10
-
+--altMult10 :: (Num a) => [a] -> [a]
 
 -- ii reverse
-
+myReverse y = foldr (\x xs -> xs ++ [x]) [] y
 
 -- iii onlyLowerCase

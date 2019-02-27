@@ -90,10 +90,10 @@ altZeroToTen = filter (\x -> x >= 0 && x < 11)
 -- versions (i) the mult10 function from Ex. 1, (ii) 
 -- reverse (to reverse a list), and (iii) onlyLowerCase 
 -- from Ex. 2.
--- i
+-- i mult10
 
 
--- ii
+-- ii reverse
 
 
--- iii
+-- iii onlyLowerCase

@@ -1,4 +1,4 @@
--- REMAINING QUESTIONS: 8, 11, 13
+-- REMAINING QUESTIONS: 11
 {- Week6.hs
  This module illustrates the use of functions as values
 -}
@@ -49,7 +49,7 @@ sumSquares = foldr (+) 0 . map (^2)
 
 -- 5. Write a function, zeroToTen, that keeps only values
 -- between 0 and 10 from a list.
---zeroToTen :: [a] -> [a]
+zeroToTen :: [Integer] -> [Integer]
 zeroToTen = filter (<11) . filter (>=0)
 
 -- 6. Write a function, squareRoots, that finds the square 
@@ -60,16 +60,19 @@ squareRoots = map sqrt . keepPositive
 -- 7. Write a function, countBetween, that counts the
 -- number of items in a list between lower and upper bounds
 --countBetween ::
+countBetween :: Ord a => a -> a -> [a] -> Int
 countBetween lb ub = length . filter (>=lb) . filter (<=ub)
 
 -- 8. Write a function, alwaysPositive, that tests whether
 -- applying a given function to all elements of a list
--- results in only positive values
---alwaysPositive f x = (length . filter (<0) . map (f) x) == 0
---alwaysPositive f = foldr (&&) True . map (f)  
+-- results in only positive values.
+alwaysPositive :: (Ord a1, Num a1) => (a2 -> a1) -> [a2] -> Bool
+alwaysPositive f = all (>0) . map f
+-- how else to do this ???
 
 -- 9. Write a function, productSquareRoots, that finds the
 -- product of the square roots of all the non-negative values in a list.
+productSquareRoots :: [Double] -> Double
 productSquareRoots = foldr (*) 1 . map sqrt . filter (>=0)
 
 -- OTHER HIGHER-ORDER FUNCTIONS
@@ -82,21 +85,26 @@ removeFirst f (x:xs) = if f x then xs else x:removeFirst f xs
 
 -- 11. Write a function, removeLast, that removes the last
 -- element of a list that has a given property.
---removeLast f x =
+--removeLast f x =  
 
 -- USING LAMBDA EXPRESSIONS
 -- 12. Using filter and a single lambda expression, give an
 -- alternative solution to Ex. 5
+altZeroToTen :: [Integer] -> [Integer]
 altZeroToTen = filter (\x -> x >= 0 && x < 11)
 
 -- 13. Using only lambda expressions and foldr, write new
 -- versions (i) the mult10 function from Ex. 1, (ii) 
 -- reverse (to reverse a list), and (iii) onlyLowerCase 
 -- from Ex. 2.
--- i mult10
---altMult10 :: (Num a) => [a] -> [a]
+-- (i) mult10
+altMult10 :: [Integer] -> [Integer] 
+altMult10 = (\(x:xs) -> if xs == [] then x * 10 : xs else x*10 : altMult10 xs)
 
--- ii reverse
+-- (ii) reverse
+myReverse :: Foldable t => t a -> [a]
 myReverse y = foldr (\x xs -> xs ++ [x]) [] y
 
--- iii onlyLowerCase
+-- (iii) onlyLowerCase
+altOnlyLowerCase :: String -> String
+altOnlyLowerCase = (\(x:xs) -> if isLower x then x : onlyLowerCase xs else onlyLowerCase xs)

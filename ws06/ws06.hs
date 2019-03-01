@@ -1,4 +1,3 @@
--- REMAINING QUESTIONS: 11
 {- Week6.hs
  This module illustrates the use of functions as values
 -}
@@ -85,7 +84,8 @@ removeFirst f (x:xs) = if f x then xs else x:removeFirst f xs
 
 -- 11. Write a function, removeLast, that removes the last
 -- element of a list that has a given property.
---removeLast f x =  
+removeLast :: (a -> Bool) -> [a] -> [a]
+removeLast f x = if f (last x) then init x else (removeLast f (init x)) ++ [last x]
 
 -- USING LAMBDA EXPRESSIONS
 -- 12. Using filter and a single lambda expression, give an

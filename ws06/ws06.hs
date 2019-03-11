@@ -41,6 +41,10 @@ onlyLowerCase = filter isLower
 orAll :: [Bool] -> Bool
 orAll = foldr (||) False
 
+-- bonus
+andAll :: [Bool] -> Bool
+andAll = foldr (&&) True
+
 -- 4. Write a function, sumSquares, that returns the sum of
 -- the squares of the elements in a list.
 sumSquares :: (Num a) => [a] -> a
@@ -68,6 +72,9 @@ countBetween lb ub = length . filter (>=lb) . filter (<=ub)
 alwaysPositive :: (Ord a1, Num a1) => (a2 -> a1) -> [a2] -> Bool
 alwaysPositive f = all (>0) . map f
 -- how else to do this ???
+-- this could be done by composing a function that: (1) maps a function
+-- a list, (2) maps (>0) to that list to provide a list of truth values,
+-- then, (3) 'ands' all of those truth values.
 
 -- 9. Write a function, productSquareRoots, that finds the
 -- product of the square roots of all the non-negative values in a list.
@@ -86,6 +93,10 @@ removeFirst f (x:xs) = if f x then xs else x:removeFirst f xs
 -- element of a list that has a given property.
 removeLast :: (a -> Bool) -> [a] -> [a]
 removeLast f x = if f (last x) then init x else (removeLast f (init x)) ++ [last x]
+
+spinRemoveLast :: (a -> Bool) -> [a] -> [a]
+spinRemoveLast f x = reverse (removeFirst f (reverse x))
+
 
 -- USING LAMBDA EXPRESSIONS
 -- 12. Using filter and a single lambda expression, give an
